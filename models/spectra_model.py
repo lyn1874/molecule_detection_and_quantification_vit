@@ -12,7 +12,7 @@ import torch.nn.functional as F
 class XceptionCls(nn.Module):
     def __init__(self, wavenumber, num_class=2, stem_kernel=21, depth=128, stem_max_dim=64,
                  within_dropout=True, quantification=False, detection=True, reduce_channel_first=False, 
-                 data_input_channel=1, cast_quantification_to_classification=False):
+                 data_input_channel=1):
         super(XceptionCls, self).__init__()
         self.wavenumber = wavenumber
         self.depth = depth
@@ -21,7 +21,7 @@ class XceptionCls(nn.Module):
         self.quantification = quantification
         self.reduce_channel_first = reduce_channel_first
         self.detection = detection
-        self.cast_quantification_to_classification = cast_quantification_to_classification
+
         self.extractor = Xception(self.wavenumber, stem_kernel, 2, act="leakyrelu",
                                   depth=depth, stem_max_dim=stem_max_dim,
                                   within_dropout=within_dropout, data_input_channel=data_input_channel)
@@ -35,10 +35,7 @@ class XceptionCls(nn.Module):
         if self.detection:
             self.cls_block = nn.Linear(self.feature_dim, num_class)
         if self.quantification:
-            if cast_quantification_to_classification:
-                self.quan_block = nn.Linear(self.feature_dim, num_class)
-            else:
-                self.quan_block = nn.Linear(self.feature_dim, 1)
+            self.quan_block = nn.Linear(self.feature_dim, 1)
 
     def forward(self, x):
         feat = self.extractor(x)
@@ -51,10 +48,7 @@ class XceptionCls(nn.Module):
         else:
             y_pred = []
         if self.quantification:
-            if self.cast_quantification_to_classification:
-                y_quan_pred = self.quan_block(feat)
-            else:
-                y_quan_pred = self.quan_block(feat)[:, 0]
+            y_quan_pred = self.quan_block(feat)[:, 0]
         else:
             y_quan_pred = []
         return feat, y_pred, y_quan_pred
@@ -70,10 +64,7 @@ class XceptionCls(nn.Module):
         else:
             y_pred = []
         if self.quantification:
-            if self.cast_quantification_to_classification:
-                y_quan_pred = self.quan_block(feat)
-            else:
-                y_quan_pred = self.quan_block(feat)[:, 0]
+            y_quan_pred = self.quan_block(feat)[:, 0]
         else:
             y_quan_pred = []
         return feat, y_pred, y_quan_pred
@@ -81,14 +72,12 @@ class XceptionCls(nn.Module):
 
 
 class UnifiedCNN(nn.Module):
-    def __init__(self, input_shape, num_classes, block_type, quantification=False, detection=True,
-                 cast_quantification_to_classification=False):
+    def __init__(self, input_shape, num_classes, block_type, quantification=False, detection=True):
         super(UnifiedCNN, self).__init__()
         self.input_shape = input_shape
         self.num_classes = num_classes
         self.quantification = quantification
         self.detection = detection 
-        self.cast_quantification_to_classification = cast_quantification_to_classification
         self.feature_dimension = input_shape[1] // 2 ** 3 * 64
         print("----------------model information-------------------")
         print("The input shape:", self.input_shape)
@@ -117,10 +106,7 @@ class UnifiedCNN(nn.Module):
             self.quan_layer.add_module("quan_bn0", nn.BatchNorm1d(2048))
             self.quan_layer.add_module("quan_fc1", nn.Linear(2048, 1024))
             self.quan_layer.add_module("quan_drop", nn.Dropout())
-            if self.cast_quantification_to_classification:
-                self.quan_layer.add_module("quan_fc2", nn.Linear(1024, num_classes))
-            else:
-                self.quan_layer.add_module("quan_fc2", nn.Linear(1024, 1))
+            self.quan_layer.add_module("quan_fc2", nn.Linear(1024, 1))
             # self.quan_layer.apply(kaiming_init)
         
     def forward(self, spectrum):
@@ -129,10 +115,7 @@ class UnifiedCNN(nn.Module):
         x = self.encblock2(x)
         feat = torch.reshape(x, [-1, self.feature_dimension])
         if self.quantification:
-            if not self.cast_quantification_to_classification:
-                quan_pred = self.quan_layer(feat)[:, 0]
-            else:
-                quan_pred = self.quan_layer(feat)
+            quan_pred = self.quan_layer(feat)[:, 0]
         else:
             quan_pred = []
         if self.detection:
@@ -147,10 +130,7 @@ class UnifiedCNN(nn.Module):
         x = self.encblock2(x)
         feat = torch.reshape(x, [-1, self.feature_dimension])
         if self.quantification:
-            if not self.cast_quantification_to_classification:
-                quan_pred = self.quan_layer(feat)[:, 0]
-            else:
-                quan_pred = self.quan_layer(feat)
+            quan_pred = self.quan_layer(feat)[:, 0]
         else:
             quan_pred = []
         if self.detection:

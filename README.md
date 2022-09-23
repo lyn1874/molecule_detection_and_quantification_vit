@@ -1,7 +1,7 @@
 
 ### Vision Transformer on SERS maps
 
-This repository provides the implementation for our paper [title](url). We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 2,4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
+This repository provides the implementation for our paper [title](url). We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
 
   
 
@@ -14,6 +14,9 @@ conda activate torch_dl
 ```
 
 #### Data preparation
+
+
+#### Model preparation
 
 
 #### Model training 
@@ -48,12 +51,10 @@ For example, to run detection experiment on dataset PA with model xception, and 
 
 #### Model testing 
 
+Please look at the file `test_experiment.ipynb` for evaluating the experiment
 
 #### SERS map generation
 
 The processes for generating SERS maps are shown in the jupyter file `SERS_maps_generation.ipynb`
 
-  
-#### Test the experiments
 
-To test the model for detecting and quantifying concentration of the molecule of interests, look at the jupyter file `test_experiment.ipynb`

@@ -2,21 +2,16 @@
 Created on 16:30 at 17/11/2021
 @author: bo
 """
-from multiprocessing import reduction
 import os
 import math
 import numpy as np
 import torch
 import torch.nn as nn
-import pickle
 import wandb
-from torch.utils.data import random_split, DataLoader
-import sys, random
 import data.prepare_sers_data as psd
 import models.vit_model as vit_model
 import pytorch_lightning as pl
 from pytorch_lightning import LightningModule, seed_everything
-# from configs.model_checkpoint import ModelCheckpoint
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning.utilities import AMPType

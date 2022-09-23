@@ -12,3 +12,5 @@ checkpoint_path
 lightning_logs
 lightning_logs
 lightning_logs/*
+datasets
+exp_data

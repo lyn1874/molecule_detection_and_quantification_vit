@@ -33,6 +33,7 @@ def give_args():
     parser.add_argument("--add_positional_encoding", type=str2bool, default=True)
     parser.add_argument("--patch_height", type=int, default=2)
     parser.add_argument("--patch_width", type=int, default=2)
+    parser.add_argument("--normalization", type=str, default="none")
 
     parser.add_argument("--strategy", type=str, default="dp")
     parser.add_argument("--quantification", type=str2bool, default=False)
@@ -91,6 +92,7 @@ class const:
     detection=True
     quantification=False 
     quantification_loss="none"
+    concentration_float=0.0
     
 
 def get_config_test_vit(dataset, detection, quantification, leave_index=30):
@@ -112,6 +114,7 @@ def get_config_test_vit(dataset, detection, quantification, leave_index=30):
     args.detection = detection 
     args.quantification_loss = quantification_loss 
     args.leave_index = leave_index 
+    args.concentration_float = 1e-6 if dataset != "PA" else 1e-5
     return args
 
 
