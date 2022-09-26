@@ -49,9 +49,9 @@ def give_args():
     parser.add_argument("--augment_seed_use", type=int, default=24907)
     parser.add_argument("--leave_index", type=int, default=0)
     parser.add_argument("--leave_method", type=str, default="leave_one_chip")
-    parser.add_argument("--loc", type=str, default="home")
+    parser.add_argument("--loc", type=str, default="exp_data")
     parser.add_argument("--quantification_loss", type=str, default="mse")
-    parser.add_argument("--data_dir", type=str, default="../rs_dataset/")
+    parser.add_argument("--data_dir", type=str, default="datasets/")
 
     parser.add_argument("--gpu_index", type=int, default=10)
     parser.add_argument("--lr_schedule", type=str, default="cosine")

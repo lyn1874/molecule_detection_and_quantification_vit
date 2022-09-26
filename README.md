@@ -9,17 +9,23 @@ This repository provides the implementation for our paper [title](url). We exper
 ```bash
 git clone https://github.com/lyn1874/molecule_detection_quantification.vit
 cd molecule_detection_quantification
-conda env create -f molecule_env 
+conda env create -f molecule_env.yml 
 conda activate torch_dl
 ```
 
 #### Data preparation
-
+`Download the dataset by running script ./download_dataset.sh`
 
 #### Model preparation
 
+`Download the model checkpoints by running script ./download_ckpt.sh`
+
+#### Model testing 
+
+Please look at the file `test_experiment.ipynb` for evaluating the experiment
 
 #### Model training 
+
 ###### ViT based explosives detection and quantification
 ```python
 ./run_multiple_vit.sh detection quantification dataset gpu_index 
@@ -31,7 +37,7 @@ Args:
 ```
 
 For example, to run detection experiment on dataset DNP, you can simply run:
-``./run_multiple_vit.sh true false DNP 0 
+`./run_multiple_vit.sh true false DNP 0` 
 
 ###### Spectra based explosive detection and quantification
 ```python
@@ -49,12 +55,16 @@ Args:
 For example, to run detection experiment on dataset PA with model xception, and you choose to average each SERS map with the Top-2% of the spectra that have the highest peak intensity:
 	`./run_multiple_spectra.sh PA xception true false 0 0.002 0`
 
-#### Model testing 
-
-Please look at the file `test_experiment.ipynb` for evaluating the experiment
 
 #### SERS map generation
 
 The processes for generating SERS maps are shown in the jupyter file `SERS_maps_generation.ipynb`
+
+#### Citation
+If you use this code, please cite:
+```
+@misc{
+}
+```
 
 

@@ -30,8 +30,8 @@ exp_seed=${27?:Error: the initialisation seed for the experiment}
 gpu_index=${28?:Error: the gpu index if use the same gpu}
 lr_schedule=${29:-cosine}
 model_init=${30:-xavier}
+loc_use=${31:-exp_data}
 
-loc_use=scratch
 
 if [ "$dataset" != TOMAS ] && [ "$dataset" != DNP ] && [ "$dataset" != PA ]
 then

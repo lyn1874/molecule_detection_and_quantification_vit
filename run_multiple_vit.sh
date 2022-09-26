@@ -4,6 +4,7 @@ detection=${1?:Error: the number of gpus}
 quantification=${2?:Error: batch_size default 512?}
 dataset=${3?:Error: what is the name of the dataset?}
 gpu_index=${4?:Error: the gpu index}
+loc_use=${5:-exp_data}
 
 
 export CUDA_VISIBLE_DEVICES="$gpu_index"
@@ -53,14 +54,14 @@ then
             "$detection" false 50 "$normalization" "$quantification_loss" \
             '0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24' \
             true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-            "$gpu_index"
+            "$gpu_index" "$loc_use"
         if [ "$detection" == true ]; then 
             ./run_vit.sh 1 "$bs" eetti16 300 "$seed_use" TOMAS "$lr" \
                 false 2 2 dp '0' "$quantification" "$target_size" "$target_size" "$concentration_float" \
                 "$detection" false 50 "$normalization" "$quantification_loss" \
                 '25 26 27 28 29' \
                 true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-                "$gpu_index"
+                "$gpu_index" "$loc_use"
         fi     
     done
 elif [ "$dataset" == DNP ]
@@ -85,14 +86,14 @@ then
             "$detection" false 50 "$normalization" "$quantification_loss" \
             '0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24' \
             true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-            "$gpu_index"
+            "$gpu_index" "$loc_use"
         if [ "$detection" == true ]; then 
             ./run_vit.sh 1 "$bs" eetti16 300 "$seed_use" DNP "$lr" \
                 false 2 2 dp '0' "$quantification" "$target_size" "$target_size" "$concentration_float" \
                 "$detection" false 50 "$normalization" "$quantification_loss" \
                 '25 26 27 28 29' \
                 true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-                "$gpu_index"
+                "$gpu_index" "$loc_use"
         fi
     done 
 elif [ "$dataset" == PA ]
@@ -119,7 +120,7 @@ then
                 "$detection" false 50 "$normalization" "$quantification_loss" \
                 '0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19' \
                 true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-                "$gpu_index" 
+                "$gpu_index" "$loc_use"
         done 
     else
         for seed_use in $seed_group
@@ -129,7 +130,7 @@ then
                 "$detection" false 50 "$normalization" "$quantification_loss" \
                 "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24" \
                 true "$skip_value" leave_one_chip "$augment_seed" "$seed_use" \
-                "$gpu_index" 
+                "$gpu_index" "$loc_use" 
         done
     fi 
 else
@@ -163,7 +164,7 @@ else
             false 2 2 dp '0' "$quantification" "$target_size" "$target_size" "$concentration_float" \
             "$detection" false 50 "$normalization" "$quantification_loss" 0 \
             true 1 leave_one_chip "$augment_seed" "$seed_use" \
-            "$gpu_index"
+            "$gpu_index" "$loc_use"
     done
 fi
 

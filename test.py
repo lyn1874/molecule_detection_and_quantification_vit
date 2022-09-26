@@ -96,14 +96,7 @@ def get_ckpt(dataset, detection, quantification, const, exp_dir="/nobackup/blia/
     model_dir = [data_path + "/" + v + "/" for v in model_dir]
     ckpt_group = []
     for s_model_path in model_dir:
-        if quantification:
-            all_ckpts = sorted([v for v in os.listdir(s_model_path) if ".ckpt" in v and "validation_quantification_rmae" in v and '-v1.ckpt' not in v])    
-            accu = [float(v.split("validation_quantification_rmae=")[1].split(".ckpt")[0]) for v in all_ckpts]
-            s_ckpt = np.array(all_ckpts)[np.argsort(accu)[0]]
-        else:
-            all_ckpts = sorted([v for v in os.listdir(s_model_path) if ".ckpt" in v and "validation_accuracy" in v and '-v1.ckpt' not in v])
-            accu = [float(v.split("validation_accuracy=")[1].split(".ckpt")[0]) for v in all_ckpts]
-            s_ckpt = np.array(all_ckpts)[np.argsort(accu)[-1]]
+        s_ckpt = [v for v in os.listdir(s_model_path) if ".ckpt" in v][0]
         model_ckpt = s_model_path + "/" + s_ckpt
         ckpt_group.append(model_ckpt)
     return ckpt_group 

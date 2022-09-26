@@ -23,7 +23,7 @@ normalization=${20?:Error: what is the normalization technique? max/none}
 quantification_loss=${21?:Error: what is the quantification loss, mae}
 seed_use=${22?:Error: the random seed}
 gpu_index=${23?:Error: specify the gpu index}
-
+loc_use=${24:-nobackup}
 echo "$model_type"
 
 if [ "$percentage" == 1.0 ]; then
@@ -44,11 +44,10 @@ then
             --target_w "$target_w" --use_wave_as_batch false --epoch "$epoch" \
             --top_selection_method "$top_selection_method" --percentage "$s_percentage" \
             --use_map "$use_map" --avg_spectra "$avg_spectra" --detection "$detection" --concentration_float "$concentration_float" \
-            --cast_quantification_to_classification "$cast_quantification_to_classification" --warmup_epochs 50 --loc nobackup \
+            --cast_quantification_to_classification "$cast_quantification_to_classification" --warmup_epochs 50 --loc "$loc_use" \
             --normalization "$normalization" --quantification_loss "$quantification_loss" --seed_use "$seed_use" --gpu_index "$gpu_index"
   done
 else
-  loc_use=nobackup
   for s_percentage in $percentage
   do
     if [ "$dataset" != PA ]; then

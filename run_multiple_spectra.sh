@@ -7,6 +7,7 @@ quantification=${4?:Error: True/False}
 version_g=${5?:Error: experiment version}
 perc_use=${6?:Error: the percentage usage}
 gpu_index=${7?:Error: the selected gpu index}
+loc_use=${8:-exp_data}
 
 
 model_method=top_peak
@@ -138,7 +139,7 @@ do
       ./run_spectra.sh $num_gpu "$bs" $perc_use "$version" \
         "$dataset" "$lr" "$epoch" dp '0' "$quantification" "$targ_h" "$targ_h" $s_method "$model" \
         "$use_map" "$avg_spectra" "$detection" "$concentration_float" "$cast_quantification_to_cls" \
-        "$normalization" "$quantification_loss" "$seed_use" "$gpu_index"
+        "$normalization" "$quantification_loss" "$seed_use" "$gpu_index" "$loc_use"
     done
   done
 done
