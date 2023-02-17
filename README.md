@@ -1,7 +1,7 @@
 
 ### Vision Transformer on SERS maps
 
-This repository provides the implementation for our paper [Nitroaromatic explosives detection and quantification using attention-based transformer on surface-enhanced Raman spectroscopy maps]. We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
+This repository provides the implementation for our paper [Nitroaromatic explosives detection and quantification using attention-based transformer on surface-enhanced Raman spectroscopy maps](link). We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
 
   
 
