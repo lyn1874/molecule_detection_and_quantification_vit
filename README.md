@@ -1,7 +1,7 @@
 
 ### Vision Transformer on SERS maps
 
-This repository provides the implementation for our paper [title](url). We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
+This repository provides the implementation for our paper [Nitroaromatic explosives detection and quantification using attention-based transformer on surface-enhanced Raman spectroscopy maps]. We experimentally demonstrated that we significantly outperform or is on par with the existing approaches for explosives detection and quantification using raw SERS maps as input. We also opensource three SERS datasets that are measured down to very low concentrations: 4-NBT, 4-dinitrophenyl hydrazine (DNP), and Picric acid (PA).
 
   
 
@@ -14,11 +14,11 @@ conda activate torch_dl
 ```
 
 #### Data preparation
-`Download the dataset by running script ./download_dataset.sh`
+Download the dataset into folder `datasets/`
 
 #### Model preparation
 
-`Download the model checkpoints by running script ./download_ckpt.sh`
+Download the model checkpoints into `exp_data/VIT/`
 
 #### Model testing 
 
